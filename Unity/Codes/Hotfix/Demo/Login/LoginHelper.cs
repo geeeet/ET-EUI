@@ -23,7 +23,7 @@ namespace ET
             {
                 accountSession?.Dispose();
                 Log.Error(e);
-                return ErrorCode.Err_NetWorkError;
+                return ErrorCode.ERR_NetWorkError;
                 throw;
             }
 
@@ -35,6 +35,9 @@ namespace ET
 
             //保存Session链接
             zoneScene.AddComponent<SessionComponent>().Session = accountSession;
+
+            zoneScene.GetComponent<AccountInfoComponent>().Token = loginAccount.Token;
+            zoneScene.GetComponent<AccountInfoComponent>().AccountId = loginAccount.AccountId;
 
             return ErrorCode.ERR_Success;
 

@@ -13,21 +13,27 @@ namespace ET
         BlackList = 1,
     }
 
+    [ChildType]
     public class Account : Entity, IAwake
     {
         /// <summary>
         /// 账户名
         /// </summary>
-        public string AccountName;
+        private string accountName;
         /// <summary>
         /// 密码
         /// </summary>
-        public string Password;
+        private string password;
         /// <summary>
         /// 账号创建时间
         /// </summary>
-        public long CreateTime;
+        private long createTime;
 
-        public int AccountType;
+        private int accountType;
+
+        public string AccountName { get => accountName; set => accountName = value; }
+        public string Password { get => password; set => password = value; }
+        public long CreateTime { get => createTime; set => createTime = value; }
+        public int AccountType { get => accountType; set => accountType = value; }
     }
 }

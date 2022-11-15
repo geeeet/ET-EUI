@@ -14,6 +14,10 @@ namespace ET
         // 110000 - 200000是抛异常的错误
         // 200001以上不抛异常
 
-        public const int Err_NetWorkError = 200002;
+        public const int ERR_NetWorkError = 200002;
+        public const int ERR_LoginInfoError = 2000003;  //登录网络消息错误
+        public const int ERR_LoginAccountNameError = 2000004;
+        public const int ERR_LoginAccountPasswordError = 2000005;
+        public const int ERR_LoginAccountBlackListError = 2000006;
     }
 }

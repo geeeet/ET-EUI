@@ -12,6 +12,8 @@ namespace ET
         public const int ResourcesLoader = 7;
         public const int LoadUIBaseWindows = 8;
 
+        public const int LoginAccount = 10;
+
         public const int Max = 100; // 这个必须最大
     }
 }

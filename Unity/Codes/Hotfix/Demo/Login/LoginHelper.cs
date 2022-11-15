@@ -13,6 +13,8 @@ namespace ET
             try
             {
                 accountSession = zoneScene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(address));
+                //密码进行加密
+                password = MD5Helper.StringMD5(password);
                 loginAccount = (A2C_LoginAccount)await accountSession.Call(new C2A_LoginAccount()
                 {
                     AccountName = account,
@@ -35,6 +37,8 @@ namespace ET
 
             //保存Session链接
             zoneScene.AddComponent<SessionComponent>().Session = accountSession;
+            //PingComponent保证隔一段时间检测心跳包，保证客户端没有断开
+            zoneScene.GetComponent<SessionComponent>().Session.AddComponent<PingComponent>();
 
             zoneScene.GetComponent<AccountInfoComponent>().Token = loginAccount.Token;
             zoneScene.GetComponent<AccountInfoComponent>().AccountId = loginAccount.AccountId;

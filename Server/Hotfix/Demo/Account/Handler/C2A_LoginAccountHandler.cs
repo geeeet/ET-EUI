@@ -101,6 +101,21 @@ namespace ET
 
                     }
 
+                    AccountSessionsComponent accountSessionsComponent = session.DomainScene().GetComponent<AccountSessionsComponent>();
+                    long accountSessionInstanceId = accountSessionsComponent.Get(account.Id);
+                    Session otherSession = Game.EventSystem.Get(accountSessionInstanceId) as Session;
+                    if (otherSession != null)
+                    {
+                        //若有其他玩家在线，则发送消息，离线
+                        otherSession.Send(new A2C_Disconnect() { Error = 0 });
+                        otherSession.Disconnect().Coroutine();
+                    }
+                    //新玩家上线
+                    session.DomainScene().GetComponent<AccountSessionsComponent>().Add(account.Id, session.InstanceId);
+
+                    //TODO 如果玩家太久没有操作，则踢下线
+                    session.AddComponent<AccountCheckOutTimeComponent, long>(account.Id);
+
                     string token = TimeHelper.ServerNow().ToString() + RandomHelper.RandomNumber(int.MinValue, int.MaxValue).ToString();
                     TokenComponent tokenComponent = session.DomainScene().GetComponent<TokenComponent>();
                     tokenComponent.Remove(account.Id);
